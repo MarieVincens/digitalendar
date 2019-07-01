@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     /**
-     * @Route("/event/", name="event_index", methods={"GET"})
+     * @Route("/", name="event_index", methods={"GET"})
      */
     public function index(EventRepository $eventRepository): Response
     {
@@ -26,7 +26,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/new", name="event_new", methods={"GET","POST"})
+     * @Route("/new", name="event_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -53,6 +53,7 @@ class EventController extends AbstractController
      */
     public function show(Event $event): Response
     {
+
         return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
