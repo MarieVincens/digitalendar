@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,6 +62,28 @@ class Event
      * @ORM\Column(type="boolean")
      */
     private $is_valid;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Language", inversedBy="events")
+     */
+    private $language;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Participant", inversedBy="events")
+     */
+    private $participant;
+
+    public function __construct()
+    {
+        $this->language = new ArrayCollection();
+        $this->participant = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,6 +194,82 @@ class Event
     public function setIsValid(bool $is_valid): self
     {
         $this->is_valid = $is_valid;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Language[]
+     */
+    public function getLanguage(): Collection
+    {
+        return $this->language;
+    }
+
+    public function addLanguage(Language $language): self
+    {
+        if (!$this->language->contains($language)) {
+            $this->language[] = $language;
+        }
+
+        return $this;
+    }
+
+    public function removeLanguage(Language $language): self
+    {
+        if ($this->language->contains($language)) {
+            $this->language->removeElement($language);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipant(): Collection
+    {
+        return $this->participant;
+    }
+
+    public function addParticipant(Participant $participant): self
+    {
+        if (!$this->participant->contains($participant)) {
+            $this->participant[] = $participant;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participant->contains($participant)) {
+            $this->participant->removeElement($participant);
+        }
 
         return $this;
     }
