@@ -79,6 +79,12 @@ class Event
      */
     private $participant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->language = new ArrayCollection();
@@ -198,18 +204,6 @@ class Event
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->User;
-    }
-
-    public function setUser(?User $User): self
-    {
-        $this->User = $User;
-
-        return $this;
-    }
-
     public function getCity(): ?City
     {
         return $this->city;
@@ -270,6 +264,18 @@ class Event
         if ($this->participant->contains($participant)) {
             $this->participant->removeElement($participant);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
