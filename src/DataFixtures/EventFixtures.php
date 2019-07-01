@@ -3,28 +3,54 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
+use App\Service\Slugger;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class EventFixtures extends Fixture
 {
+
     public function load(ObjectManager $manager)
     {
         $event1 = new Event();
-        $event1->setTitle();
-        $event1->setSlug();
-        $event1->setPicture();
-        $event1->setDateStart();
-        $event1->setDateEnd();
-        $event1->setDescription();
-        $event1->setPrice();
-        $event1->setUrl();
-        $event1->setUser($this->getReference(""));
-        $event1->setCity($this->getReference(""));
-        $event1->addLanguage();
+        $event1->setTitle("Open Source Summit");
+        $event1->setPicture("opensourcesummit.jpg");
+        $event1->setDateStart(new \DateTime("2019-12-10"));
+        $event1->setDateEnd(new \DateTime("2019-12-11"));
+        $event1->setDescription("Nouveau summit cette année!");
+        $event1->setPrice("200");
+        $event1->setUser($this->getReference("user-quirrel"));
+        $event1->setCity($this->getReference("city-paris"));
+        $event1->addLanguage($this->getReference("language-anglais"));
+        $event1->addLanguage($this->getReference("language-francais"));
+        $manager->persist($event1);
 
+        $event2 = new Event();
+        $event2->setTitle("Event numero 2");
+        $event2->setPicture("event2.jpg");
+        $event2->setDateStart(new \DateTime("2017-10-01"));
+        $event2->setDateEnd(new \DateTime("2017-10-03"));
+        $event2->setDescription("Nouvel Event!");
+        $event2->setPrice("58");
+        $event2->setUrl("event2.com");
+        $event2->setUser($this->getReference("user-tintin"));
+        $event2->setCity($this->getReference("city-rennes"));
+        $event2->addLanguage($this->getReference("language-italien"));
+        $event2->addLanguage($this->getReference("language-francais"));
+        $manager->persist($event2);
 
-        // $manager->persist($product);
+        $event3 = new Event();
+        $event3->setTitle("Event numero 3");
+        $event3->setPicture("event3.jpg");
+        $event3->setDateStart(new \DateTime("2018-10-01"));
+        $event3->setDateEnd(new \DateTime("2018-10-03"));
+        $event3->setDescription("Nouvel Event pour les riches!");
+        $event3->setPrice("832");
+        $event3->setUser($this->getReference("user-pierre"));
+        $event3->setCity($this->getReference("city-marseilles"));
+        $event3->addLanguage($this->getReference("language-italien"));
+        $manager->persist($event3);
+
 
         $manager->flush();
     }
