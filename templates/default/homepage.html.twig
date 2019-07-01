@@ -12,7 +12,7 @@
                 <p class="lead text-muted">Votre agenda d'événements autour du digital</p>
                 <p>
                     <a href="#events" class="btn btn-primary my-2">Les prochains événements</a>
-                    <a href="events.html" class="btn btn-secondary my-2">Tous les événements</a>
+                    <a href="" class="btn btn-secondary my-2">Tous les événements</a>
                 </p>
             </div>
         </section>
@@ -24,36 +24,25 @@
 
                 <div class="row">
 
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <img src="uploads/logo-wwf-2019.png" alt="West Web Festival">
-                            <div class="card-body">
-                                <h3 class="card-text">West Web Festival</h3>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="event.html" class="btn btn-sm btn-outline-secondary">Voir</a>
-                                        <a href="#" class="btn btn-sm btn-outline-secondary">Modifier</a>
-                                    </div>
-                                    <small class="text-muted">Carhaix | 18-19 juillet 2019</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% for event in events %}
 
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <img src="uploads/open-source-summit.jpg" alt="Open Source Summit">
-                            <div class="card-body">
-                                <h3 class="card-text">Open Source Summit</h3>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="event.html" class="btn btn-sm btn-outline-secondary">Voir</a>
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <img src="{{ event.picture }}" alt="{{ event.picture }}">
+                                <div class="card-body">
+                                    <h3 class="card-text">{{ event.title }}</h3>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="{{ path('event_show', {slug: event.slug})}}" class="btn btn-sm btn-outline-secondary">Voir</a>
+                                            <a href="#" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                        </div>
+                                        <small class="text-muted">{{ event.city.name }}</small>
                                     </div>
-                                    <small class="text-muted">Paris | 10-11 décembre 2019</small>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        
+                    {% endfor %}
 
                 </div>
             </div>

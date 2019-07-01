@@ -18,7 +18,18 @@
             </nav>
         </div>
     </div>
+
         {% block body %}{% endblock %}
+
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Haut de page</a>
+            </p>
+            <p>&copy; Digitalendar 2019</p>
+        </div>
+    </footer>
+
         {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
     </body>
 </html>
