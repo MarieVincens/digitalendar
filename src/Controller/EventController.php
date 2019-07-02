@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -94,4 +95,6 @@ class EventController extends AbstractController
 
         return $this->redirectToRoute('event_index');
     }
+
+
 }

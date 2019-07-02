@@ -15,7 +15,7 @@
                 <a class="p-2 text-white" href="{{ path('event_index') }}">Les événements</a>
                 <a class="p-2 text-white" href="add-event.html">Proposer un événement</a>
                 {% if app.user %}
-                    <a class="p-2 text-white" href="#">Mon Compte</a>
+                    <a class="p-2 text-white" href="{{ path('user_show', {username: app.user.username})}}">Mon Compte</a>
                     <a class="p-2 text-white" href="{{ path('app_logout') }}">Deconnexion</a>
                 {% else %}
                     <a class="p-2 text-white" href="{{ path('app_login') }}">Connexion</a>

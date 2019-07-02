@@ -10,7 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
+
 class Event
 {
     /**
@@ -283,4 +285,18 @@ class Event
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist()
+     */
+
+    public function PrePersist()
+    {
+        if ($this->getPicture()==null){
+            $this->setPicture("filler.jpg");
+        }
+
+    }
+
+
 }
