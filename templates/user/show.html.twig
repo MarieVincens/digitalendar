@@ -19,7 +19,7 @@
                     <li>Email : {{ user.email }}</li>
                 </ul>
 
-                <a href="#" class="btn btn-primary">Modifier</a>
+                <a href="{{ path('user_edit', {id: app.user.id}) }}" class="btn btn-primary">Modifier</a>
 
                 <div id="events" class="album py-5">
 
@@ -35,7 +35,7 @@
                                         <h3 class="card-text">{{ event.title }}</h3>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                                <a href="event.html" class="btn btn-sm btn-outline-secondary">Voir</a>
+                                                <a href="{{ path('event_show', {slug: event.slug})}}" class="btn btn-sm btn-outline-secondary">Voir</a>
                                                 <a href="#" class="btn btn-sm btn-outline-secondary">Modifier</a>
                                             </div>
                                             <small class="text-muted">{{ event.city }} | {{ event.DateStart|date('d')}} - {{ event.DateEnd|date('d M Y')}}</small>

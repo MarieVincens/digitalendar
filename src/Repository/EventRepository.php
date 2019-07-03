@@ -20,6 +20,23 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+
+
+        /**
+         * $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+        'SELECT p
+        FROM App\Entity\Product p
+        WHERE p.price > :price
+        ORDER BY p.price ASC'
+        )->setParameter('price', $price);
+
+        // returns an array of Product objects
+        return $query->execute();
+         */
+
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

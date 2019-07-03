@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Event;
-use App\Entity\User;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -65,7 +64,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{slug}", name="event_show", methods={"GET"})
+     * @Route("/{slug}", name="event_show", methods={"GET"})
      */
     public function show(Event $event): Response
     {
@@ -76,7 +75,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{slug}/edit", name="event_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="event_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Event $event): Response
     {
@@ -98,7 +97,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{slug}", name="event_delete", methods={"DELETE"})
+     * @Route("/{slug}", name="event_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Event $event): Response
     {
@@ -110,6 +109,4 @@ class EventController extends AbstractController
 
         return $this->redirectToRoute('event_index');
     }
-
-
 }
