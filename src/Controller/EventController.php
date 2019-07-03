@@ -51,6 +51,7 @@ class EventController extends AbstractController
                 $event->setPicture($filename);
             }
 
+            $event->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();

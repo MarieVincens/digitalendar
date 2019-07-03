@@ -22,13 +22,14 @@
                     </div>
 
                 </div>
-                {% for event in events %}
-                {% if event.dateEnd|date('Y') == 2019 %}
+
 
                 <div class="col-md-10">
                     <div class="row">
 
                         <div class="col-md-6">
+                            {% for event in events %}
+                            {% if event.dateEnd|date('Y') == 2019 %}
                             <div class="card mb-4 shadow-sm">
                                 <img src="{{ asset('uploads/' ~ event.picture) }}" alt="{{ event.picture }}">
                                 <div class="card-body">
@@ -42,11 +43,12 @@
                                     </div>
                                 </div>
                             </div>
+                            {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                {% endif %}
-                {% endfor %}
+
             </div>
         </div>
     </div>
