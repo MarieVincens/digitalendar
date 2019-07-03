@@ -13,18 +13,14 @@ class EventType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('slug')
             ->add('picture')
             ->add('description')
             ->add('date_start')
             ->add('date_end')
             ->add('url')
             ->add('price')
-            ->add('is_valid')
             ->add('city')
             ->add('language')
-            ->add('participant')
-            ->add('user')
         ;
     }
 

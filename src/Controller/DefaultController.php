@@ -13,7 +13,7 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        $events = $this->getDoctrine()->getRepository(Event::class)->findAll( [], ['date_end'=>'ASC'], 6);
 
         return $this->render("default/homepage.html.twig", [
             "events" => $events

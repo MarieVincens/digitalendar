@@ -36,6 +36,22 @@ class ParticipantRepository extends ServiceEntityRepository
     }
     */
 
+    public function nbParticipant($event_id)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb -> select(count("participant.user_id"))
+            ->from(Participant::class)
+            ->where('participant.events_id = $even_id');
+
+    }
+
+    public function addParticipant($event_id, $user_id)
+    {
+        $qb=$this->createQueryBuilder('u');
+        $qb ->getQuery();
+
+    }
+
     /*
     public function findOneBySomeField($value): ?Participant
     {
