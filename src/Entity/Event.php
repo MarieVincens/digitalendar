@@ -296,11 +296,6 @@ class Event
             $this->setPicture("filler.jpg");
         }
 
-        if ($this->getUser() ==null)
-        {
-            $this->setUser("app.user.id");
-        }
-
     }
 
 

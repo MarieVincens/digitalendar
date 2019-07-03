@@ -34,7 +34,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a href="{{ path('event_show', {slug: event.slug})}}" class="btn btn-sm btn-outline-secondary">Voir</a>
-                                            <a href="#" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                            <a href="{{ path('event_edit', {slug: event.slug}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
                                         </div>
                                         <small class="text-muted">{{ event.city.name }} | {{ event.DateStart|date('d')}} - {{ event.DateEnd|date('d M Y')}}</small>
                                     </div>

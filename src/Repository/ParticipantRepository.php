@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Participant;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -36,29 +37,46 @@ class ParticipantRepository extends ServiceEntityRepository
     }
     */
 
-    public function nbParticipant($event_id)
-    {
-        $qb = $this->createQueryBuilder('nbParticipant');
-        $qb -> select(count("participant.user"))
-            ->from(Participant::class)
-            ->where('participant.events_id = $even_id')
-            ->orderBy("u.events");
-
-    }
-
     public function addParticipant(int $event_id, int $user_id)
     {
         $qb = $this->createQueryBuilder('participant');
 
-        $qb ->select("participant")
-            ->innerJoin("participant.events", "events")
-            ->innerJoin("participant.user", "user")
-            ->add(["user.id", "event.id"]);
+        $qb ->update(Participant::class);
 
-        $qb->setParameter("user.id", $user_id)
+        $qb ->setParameter("user.id", $user_id)
             ->setParameter("event.id", $event_id);
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function nbParticipant(int $event_id)
+    {
+        $qb = $this-> createQueryBuilder();
+
+        $qb->select('COUNT(p.users)')
+            ->from(Participant::class, 'p')
+            ->groupBy('p.events')
+            ->where('p.events.id'=='event_id');
+
+        $qb->setParameter("event_id", $event_id);
+
+        $query = $qb->getQuery();
+
+        echo $query->getDQL();
+        echo $query->getResult();
+
+        /**
+         * $queryBuilder = $entityManager->createQueryBuilder();
+
+        $queryBuilder->select('COUNT(u.id)')
+        ->from(User::class, 'u');
+
+        $query = $queryBuilder->getQuery();
+
+        echo $query->getDQL(), "\n";
+        echo $query->getSingleScalarResult();
+         */
+
     }
 
     /*
