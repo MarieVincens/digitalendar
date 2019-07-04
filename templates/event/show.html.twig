@@ -24,7 +24,7 @@
                     </span>
                     <span class="badge badge-pill badge-secondary" data-toggle="tooltip" data-placement="top" title="Participants">
                         <i class="fa fa-users"></i>
-                        17
+                        {{ event.participants.count }}
 
                     </span>
                     {% if event.url != NULL %}
