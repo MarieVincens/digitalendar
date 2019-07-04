@@ -15,14 +15,24 @@ class ParticipantController extends AbstractController
      */
     public function new(Event $event)
     {
-        $participant = new Participant();
-        $participant->setUser($this->getUser());
-        $participant->setEvent($event);
-
         $em = $this->getDoctrine()->getManager();
-        $em->persist($participant);
-        $em->flush();
 
-        return $this->redirectToRoute("homepage");
+        // Vérifier si l'utilisateur participe déjà
+        $participant = $em->getRepository(Participant::class)->findOneBy(["user" => $this->getUser(), "event" => $event]);
+
+        if ($participant) {
+            $em->remove($participant); // Supprimer la participation
+        } else {
+            // Ajouter la participation
+            $participant = new Participant();
+            $participant->setUser($this->getUser());
+            $participant->setEvent($event);
+
+            $em->persist($participant);
+        }
+
+            $em->flush();
+
+        return $this->redirectToRoute("event_show", ["slug" => $event->getSlug()]);
     }
 }
