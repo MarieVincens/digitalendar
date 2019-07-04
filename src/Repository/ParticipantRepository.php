@@ -38,18 +38,6 @@ class ParticipantRepository extends ServiceEntityRepository
     }
     */
 
-    public function addParticipant(int $event_id, int $user_id)
-    {
-        $qb = $this->createQueryBuilder('participant');
-
-        $qb ->update(Participant::class);
-
-        $qb ->setParameter("user.id", $user_id)
-            ->setParameter("event.id", $event_id);
-
-        return $qb->getQuery()->getResult();
-    }
-
     public function nbParticipant(int $event_id)
     {
         $qb = $this-> createQueryBuilder('participant');

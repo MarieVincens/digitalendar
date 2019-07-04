@@ -20,6 +20,19 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function findAfterNow(int $limit = 6): array
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT e
+        FROM App\Entity\Event e
+        WHERE e.date_start >= CURRENT_DATE()
+        ORDER BY e.date_start ASC');
+
+        // returns an array of Product objects
+        return $query->setMaxResults($limit)->execute();
+    }
+
 
 
         /**
