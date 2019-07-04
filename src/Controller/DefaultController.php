@@ -20,3 +20,4 @@ class DefaultController extends AbstractController
         ]);
     }
 }
+

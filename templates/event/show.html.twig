@@ -39,7 +39,7 @@
 
                     <p>{{ event.description }}</p>
 
-                    <a href="#" class="btn btn-primary btn-lg">J'y vais !</a>
+                    <a href="{{ path('participant_new', {slug: event.slug}) }}" class="btn btn-primary btn-lg">J'y vais !</a>
 
                 </div>
             </div>

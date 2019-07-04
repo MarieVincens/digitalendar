@@ -21,8 +21,8 @@
 
                 <a href="{{ path('user_edit', {id: app.user.id}) }}" class="btn btn-primary">Modifier</a>
 
-                {% if app.user == user.roles("ROLE_ADMIN") %}
-                    <p>Admin</p>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <a href="{{ path('easyadmin') }}">Admin</a>
                 {% endif %}
 
                 <div id="events" class="album py-5">
@@ -42,7 +42,12 @@
                                                 <a href="{{ path('event_show', {slug: event.slug})}}" class="btn btn-sm btn-outline-secondary">Voir</a>
                                                 <a href="{{ path('event_edit', {slug: event.slug}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
                                             </div>
-                                            <small class="text-muted">{{ event.city }} | {{ event.DateStart|date('d')}} - {{ event.DateEnd|date('d M Y')}}</small>
+                                            {% if event.isValid == 0 %}
+                                                <small class="text-muted">Event en cours de validation</small>
+                                                {% else %}
+                                                    <small class="text-muted">{{ event.city }} | {{ event.DateStart|date('d')}} - {{ event.DateEnd|date('d M Y')}}</small>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                 </div>

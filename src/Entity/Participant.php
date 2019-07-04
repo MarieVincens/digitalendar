@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParticipantRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Participant
 {
@@ -96,8 +97,20 @@ class Participant
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist()
+     */
+    public function PrePersist()
+    {
+        if ($this->getCreatedAt()==null)
+        {
+            $this->setCreatedAt(new \DateTime());
+        }
+
+    }
+
     public function __toString()
     {
-        return $this->getName();
+        return $this->getUser()->getUsername();
     }
 }

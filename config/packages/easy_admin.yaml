@@ -1,9 +1,22 @@
 easy_admin:
     entities:
         # List the entity class name you want to manage
-        - App\Entity\Event
-        - App\Entity\User
-        - App\Entity\Language
-        - App\Entity\City
+        Event:
+            class: App\Entity\Event
+            list:
+                fields:
+                    - { property: 'isValid', type: 'toggle' }
+                    - { property: 'Title', type: 'text'}
+                    - { property: 'Picture', type: 'text'}
+                    - { property: 'URL', type: 'text'}
+
+        User:
+            class: App\Entity\User
+
+        City:
+            class: App\Entity\City
+
+        Language:
+            class: App\Entity\Language
 
     site_name: 'Digitalendar'

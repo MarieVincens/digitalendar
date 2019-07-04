@@ -2,18 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
+use App\Entity\Participant;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ParticipantController extends AbstractController
 {
     /**
-     * @Route("/participant", name="participant")
+     * @Route("/participant/{slug}", name="participant_new")
      */
-    public function index()
+    public function new(Event $event)
     {
-        return $this->render('participant/index.html.twig', [
-            'controller_name' => 'ParticipantController',
-        ]);
+        $participant = new Participant();
+        $participant->setUser($this->getUser());
+        $participant->addEvent($event);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($participant);
+        $em->flush();
+
+        return $this->redirectToRoute("homepage");
     }
 }
