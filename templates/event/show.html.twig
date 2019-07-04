@@ -41,9 +41,9 @@
                     <p>{{ event.description }}</p>
 
                     {% if participant != null%}
-                        <a href="{{ path('participant_new', {slug: event.slug}) }}" class="btn btn-danger btn-lg">J'y vais plus!</a>
+                    <a href="{{ path('participant_new', {slug: event.slug}) }}" class="btn btn-danger btn-lg">J'y vais plus!</a>
                     {% else %}
-                    <a href="{{ path('participant_new', {slug: event.slug}) }}" class="btn btn-primary btn-lg">J'y vais !</a>
+                    <a href="{{ path('participant_new', {slug: event.slug}) }}" class="btn btn-primary btn-lg">J'y vais!</a>
 
                     {% endif %}
 
