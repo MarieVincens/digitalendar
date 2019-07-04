@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Event;
 use App\Entity\Participant;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -51,12 +52,13 @@ class ParticipantRepository extends ServiceEntityRepository
 
     public function nbParticipant(int $event_id)
     {
-        $qb = $this-> createQueryBuilder();
+        $qb = $this-> createQueryBuilder('participant');
 
-        $qb->select('COUNT(p.users)')
+        $qb->select('COUNT(p.users_id)')
             ->from(Participant::class, 'p')
-            ->groupBy('p.events')
-            ->where('p.events.id'=='event_id');
+            ->innerJoin(Event::class,'event')
+            ->groupBy('p.events_id')
+            ->where('p.events_id'=='event_id');
 
         $qb->setParameter("event_id", $event_id);
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Participant;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -70,7 +71,6 @@ class EventController extends AbstractController
      */
     public function show(Event $event): Response
     {
-
         return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
