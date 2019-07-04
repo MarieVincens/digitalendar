@@ -17,7 +17,7 @@ class ParticipantController extends AbstractController
     {
         $participant = new Participant();
         $participant->setUser($this->getUser());
-        $participant->addEvent($event);
+        $participant->setEvent($event);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($participant);

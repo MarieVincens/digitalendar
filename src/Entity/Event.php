@@ -81,20 +81,20 @@ class Event
     private $language;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Participant", inversedBy="events")
-     */
-    private $participant;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="event", orphanRemoval=true)
+     */
+    private $participants;
+
     public function __construct()
     {
         $this->language = new ArrayCollection();
-        $this->participant = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,32 +248,6 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection|Participant[]
-     */
-    public function getParticipant(): Collection
-    {
-        return $this->participant;
-    }
-
-    public function addParticipant(Participant $participant): self
-    {
-        if (!$this->participant->contains($participant)) {
-            $this->participant[] = $participant;
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(Participant $participant): self
-    {
-        if ($this->participant->contains($participant)) {
-            $this->participant->removeElement($participant);
-        }
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -289,7 +263,6 @@ class Event
     /**
      * @ORM\PrePersist()
      */
-
     public function PrePersist()
     {
         if ($this->getPicture()==null){
@@ -301,6 +274,37 @@ class Event
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(Participant $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participants->contains($participant)) {
+            $this->participants->removeElement($participant);
+            // set the owning side to null (unless already changed)
+            if ($participant->getEvent() === $this) {
+                $participant->setEvent(null);
+            }
+        }
+
+        return $this;
     }
 
 

@@ -25,19 +25,20 @@ class Participant
     private $created_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="participant")
-     */
-    private $events;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="participants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="participants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $event;
+
     public function __construct()
     {
-        $this->events = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -58,46 +59,6 @@ class Participant
     }
 
     /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->addParticipant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-            $event->removeParticipant($this);
-        }
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
      * @ORM\PrePersist()
      */
     public function PrePersist()
@@ -112,5 +73,29 @@ class Participant
     public function __toString()
     {
         return $this->getUser()->getUsername();
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
+
+        return $this;
     }
 }
