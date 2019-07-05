@@ -3,11 +3,19 @@
 {% block title %}Edit Event{% endblock %}
 
 {% block body %}
+    {% if app.user == event.user %}
+<div class="container">
     <h1>Edit Event</h1>
 
     {{ include('event/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('event_index') }}">back to list</a>
 
     {{ include('event/_delete_form.html.twig') }}
+</div>
+
+    {% else %}
+        <div class="container">Mauvais utilisateur!
+
+        <a href="{{ path('homepage') }}">Retour à l'index</a></div>
+    {% endif %}
 {% endblock %}

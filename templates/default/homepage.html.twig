@@ -34,7 +34,10 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a href="{{ path('event_show', {slug: event.slug})}}" class="btn btn-sm btn-outline-secondary">Voir</a>
-                                            <a href="{{ path('event_edit', {slug: event.slug}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                            {% if app.user == event.user %}
+                                                <a href="{{ path('event_edit', {slug: event.slug}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                            {% endif %}
+
                                         </div>
                                         <small class="text-muted">{{ event.city.name }} | {{ event.DateStart|date('d')}} - {{ event.DateEnd|date('d M Y')}}</small>
                                     </div>

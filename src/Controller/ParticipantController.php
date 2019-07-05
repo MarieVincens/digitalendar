@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Participant;
-use App\Repository\EventRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,6 +12,7 @@ class ParticipantController extends AbstractController
 {
     /**
      * @Route("/participant/{slug}", name="participant_new")
+     * @IsGranted("ROLE_USER")
      */
     public function new(Event $event)
     {

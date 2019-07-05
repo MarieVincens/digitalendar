@@ -120,3 +120,4 @@ class EventController extends AbstractController
         return $this->redirectToRoute('event_index');
     }
 }
+
